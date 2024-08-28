@@ -19,6 +19,9 @@ export default {
         5: '5',
         6: '6',
       },
+      fontFamily: {
+        handjet: ['"Handjet"', 'sans-serif'],
+      },
     },
 
   },
