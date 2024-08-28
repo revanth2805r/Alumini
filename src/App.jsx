@@ -98,7 +98,7 @@ function App() {
   return (
     <div className="App">
       <Layout>
-      {/* <EmblaCarousel slides={posts} /> */}
+      <EmblaCarousel slides={posts} />
       {/* <News/>  */}
       {/* <ProfilePage/> */}
       {/* <JobPost/> */}

@@ -33,9 +33,9 @@ export function StickyNavbar() {
   }, [lastScrollTop]);
 
   const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 ">
       <Typography as="li" variant="small" color="blue-gray" className="p-1 font-normal">
-        <a href="#" className="flex items-center text-black">
+        <a href="#" className="flex items-center text-black ">
           Home
         </a>
       </Typography>
@@ -75,7 +75,7 @@ export function StickyNavbar() {
               <Button variant="text" size="sm">
                 <span className="text-black">Log In</span>
               </Button>
-              <Button variant="gradient" size="sm">
+              <Button variant="text" size="sm">
                 <span className="text-black">Sign In</span>
               </Button>
             </div>
