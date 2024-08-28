@@ -86,7 +86,7 @@ export function StickyNavbar() {
             </div>
             <IconButton
               variant="text"
-              className="lg:hidden"
+              className="lg:hidden mr-7 mb-4"
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
             >
@@ -102,13 +102,13 @@ export function StickyNavbar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav} className="p-4">
+        <MobileNav open={openNav} className="p-4 bg-white">
           {navList}
           <div className="mt-4 flex flex-col gap-4">
             <Button fullWidth variant="text" size="sm">
               <span>Log In</span>
             </Button>
-            <Button fullWidth variant="gradient" size="sm">
+            <Button fullWidth variant="text" size="sm">
               <span>Sign In</span>
             </Button>
           </div>
