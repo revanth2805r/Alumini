@@ -5,6 +5,10 @@ import ProfilePage  from './components/ProfilePage'
 import News from './components/News'
 import JobPage from './components/JobPage'
 import Popup from './components/Popup'
+
+import EventPost from './components/Eventcreation'
+import EventPopup from './components/Eventpopup';
+import EventGrid from './components/Eventlist';
 function App() {
   const [posts, setPosts] = useState([]); // State to store fetched posts
 
@@ -33,11 +37,15 @@ function App() {
     <div className="App">
       
         
-        <EmblaCarousel slides={posts} />
+        {/* <EmblaCarousel slides={posts} /> */}
+
+       {/* <EventPopup/> */}
+
+       <EventGrid/>
 
 
         {/* Uncomment and use the other components as needed */}
-        <News/> 
+        {/* <News/>  */}
         {/* <ProfilePage/> */}
         {/* <JobPost/> */}
          {/* <JobPage/>
