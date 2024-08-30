@@ -6,7 +6,7 @@ const JobPost = () => {
     description: '',
     company: '',
     location: '',
-    postedBy: '', // Replace with the actual alumnus ID when implementing
+    postedBy: '66cefe3fed570d4b4d700506', // Default userId
     datePosted: '',
     isActive: true,
   });
@@ -19,10 +19,42 @@ const JobPost = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission, e.g., send data to the server
-    console.log('Form submitted:', formData);
+
+    try {
+      const response = await fetch('http://localhost:3000/api/jobpost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit job post');
+      }
+
+      const data = await response.json();
+      console.log('Form submitted successfully:', data);
+
+      // Reset form after submission
+      setFormData({
+        title: '',
+        description: '',
+        company: '',
+        location: '',
+        postedBy: '66cefe3fed570d4b4d700506', // Reset to default userId
+        datePosted: '',
+        isActive: true,
+      });
+
+      // Optionally, show success message to the user
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      // Optionally, show error message to the user
+    }
   };
 
   return (

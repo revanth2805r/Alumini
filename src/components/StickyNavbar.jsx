@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, MobileNav, Button, IconButton } from "@material-tailwind/react";
 import logo from '../assets/logo.png';
+import { Link } from "react-router-dom";
 
 export function StickyNavbar() {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = useState(false);
   const [lastScrollTop, setLastScrollTop] = useState(0);
   const [navbarVisible, setNavbarVisible] = useState(true);
 
@@ -36,24 +37,24 @@ export function StickyNavbar() {
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6 text-gray-600">
       <li className="p-1 font-normal">
-        <a href="#" className="flex items-center hover:text-black">
+        <Link to="/" className="flex items-center hover:text-black">
           Home
-        </a>
+        </Link>
       </li>
       <li className="p-1 font-normal">
-        <a href="#" className="flex items-center hover:text-black">
-          About
-        </a>
+        <Link to="/job" className="flex items-center hover:text-black">
+          Job Page
+        </Link>
       </li>
       <li className="p-1 font-normal">
-        <a href="#" className="flex items-center hover:text-black">
+        <Link to="/services" className="flex items-center hover:text-black">
           Services
-        </a>
+        </Link>
       </li>
       <li className="p-1 font-normal">
-        <a href="#" className="flex items-center hover:text-black">
-          Contact
-        </a>
+        <Link to="/profile" className="flex items-center hover:text-black">
+          Profile
+        </Link>
       </li>
     </ul>
   );
@@ -67,13 +68,13 @@ export function StickyNavbar() {
     >
       <Navbar className="h-full max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-2"> {/* Adjusted padding */}
         <div className="flex items-center justify-between text-blue-gray-900 h-full">
-          <a href="#" className="mr-4 cursor-pointer py-1.5">
+          <Link to="/" className="mr-4 cursor-pointer py-1.5">
             <img
               src={logo}
               alt="App Logo"
               className="h-24 w-auto" // Adjust the height and width as needed
             />
-          </a>
+          </Link>
           <div className="flex items-center gap-4">
             <div className="hidden lg:block">{navList}</div>
             <div className="hidden lg:flex items-center gap-x-2">
@@ -81,7 +82,7 @@ export function StickyNavbar() {
                 <span className="text-black">Log In</span>
               </Button>
               <Button variant="text" size="sm">
-                <span className="text-black">Sign In</span>
+                <span className="text-black">Sign Up</span>
               </Button>
             </div>
             <IconButton
@@ -109,7 +110,7 @@ export function StickyNavbar() {
               <span>Log In</span>
             </Button>
             <Button fullWidth variant="text" size="sm">
-              <span>Sign In</span>
+              <span>Sign Up</span>
             </Button>
           </div>
         </MobileNav>

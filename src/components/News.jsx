@@ -1,116 +1,48 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
+import React, { useEffect, useState } from 'react';
 
-const EmblaCarousel = ({ slides }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
+function News() {
+  const [newsData, setNewsData] = useState({
+    headlines: [],
+    linkUrls: []
+  });
 
   useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on('select', onSelect);
-    onSelect();
-  }, [emblaApi, onSelect]);
+    // Fetch data from the API
+    fetch('http://localhost:3000/api/news-feed')
+      .then(response => response.json())
+      .then(data => {
+        // Randomly select 20 news items
+        const randomIndices = Array.from({ length: data.headlines.length }, (_, i) => i)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 20);
+
+        setNewsData({
+          headlines: randomIndices.map(index => data.headlines[index]),
+          linkUrls: randomIndices.map(index => data.linkUrls[index])
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
   return (
-    <div className="relative overflow-hidden w-full select-none mt-1" style={{ height: '500px' }}> {/* Set the desired height for the carousel container */}
-      <div className="embla__viewport overflow-hidden w-full h-full" ref={emblaRef}>
-        <div className="flex h-full">
-          {slides.map((slide, index) => (
-            <div
-              className={`relative flex bg-white rounded-xl shadow-lg overflow-hidden shrink-0 mr-4 ${
-                slide.imageUrl ? 'w-[30%]' : 'w-[20%]'
-              }`}
-              key={index}
-              style={{ height: '80%' }} 
-            >
-              {slide.imageUrl ? (
-                <>
-                  <div
-                    className="relative w-2/5 bg-clip-border rounded-l-xl overflow-hidden"
-                    style={{ height: '80%', backgroundImage: `url(${slide.imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-                  >
-                    <img
-                      src={slide.imageUrl}
-                      alt="card-image"
-                      className="object-cover w-full h-full"
-                      style={{ height: '80%' }}
-                    />
-                  </div>
-                  <div className="flex-1 p-4">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-2">
-                      {slide.title}
-                    </h4>
-                    <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-                      {slide.excerpt}
-                    </p>
-                    <div className="flex items-center mb-4">
-                      <img
-                        src={slide.avatar}
-                        alt={`Avatar of ${slide.author}`}
-                        className="w-8 h-8 rounded-full mr-3"
-                      />
-                      <div>
-                        <p className="font-semibold text-sm">{slide.author}</p>
-                        <p className="text-gray-500 text-xs">{slide.date}</p>
-                      </div>
-                    </div>
-                    <a href="#" className="inline-block">
-                      <button
-                        className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-900 uppercase transition-all rounded-lg hover:bg-gray-900/10 active:bg-gray-900/20"
-                        type="button"
-                      >
-                        Learn More
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
-                        </svg>
-                      </button>
-                    </a>
-                  </div>
-                </>
-              ) : (
-                <div className="flex-1 p-4">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-2">
-                    {slide.title}
-                  </h4>
-                  <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-                    {slide.excerpt}
-                  </p>
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={slide.avatar}
-                      alt={`Avatar of ${slide.author}`}
-                      className="w-8 h-8 rounded-full mr-3"
-                    />
-                    <div>
-                      <p className="font-semibold text-sm">{slide.author}</p>
-                      <p className="text-gray-500 text-xs">{slide.date}</p>
-                    </div>
-                  </div>
-                  <a href="#" className="inline-block">
-                    <button
-                      className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-gray-900 uppercase transition-all rounded-lg hover:bg-gray-900/10 active:bg-gray-900/20"
-                      type="button"
-                    >
-                      Learn More
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
-                      </svg>
-                    </button>
-                  </a>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+    <div className="w-full max-w-screen-lg p-5 sm:p-10 md:p-16 ">
+      <div className="flex flex-col items-start space-y-6">
+        <h2 className='text-3xl font-bold'>Trending</h2>
+        {newsData.headlines.map((headline, index) => (
+          <div key={index} className="w-80 p-4 bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-500 ease-in-out">
+            <a href={newsData.linkUrls[index]} className="flex flex-col">
+              <div className="flex items-center mb-3">
+                <span className="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold leading-5 text-white bg-red-500 mr-2 capitalize">
+                  News
+                </span>
+              </div>
+              <p className="text-xl font-semibold text-gray-900">{headline}</p>
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );
-};
+}
 
-export default EmblaCarousel;
+export default News;

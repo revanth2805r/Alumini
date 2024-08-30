@@ -20,22 +20,20 @@ const EmblaCarousel = ({ slides }) => {
   return (
     <div className="relative overflow-hidden w-full select-none mt-9">
       <div className="embla__viewport overflow-hidden w-full" ref={emblaRef}>
-        <div className="flex ">
+        <div className="flex">
           {slides.map((slide, index) => (
             <div
-              className={`relative flex bg-white rounded-xl shadow-lg overflow-hidden shrink-0 mr-4  ${
-                slide.imageUrl ? 'w-[30%] ' : 'w-[20%]'
-              }`}
+              className={`relative flex bg-white rounded-xl shadow-lg overflow-hidden shrink-0 mr-4 w-full sm:w-[30%]`}
               key={index}
             >
-              {slide.imageUrl ? (
+              {slide.photos.length > 0 ? (
                 <>
                   <div
-                    className="relative w-2/5 bg-clip-border rounded-l-xl overflow-hidden"
-                    style={{ backgroundImage: `url(${slide.imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+                    className="hidden sm:block relative w-2/5 bg-clip-border rounded-l-xl overflow-hidden"
+                    style={{ backgroundImage: `url(${slide.photos[0].photoUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
                   >
                     <img
-                      src={slide.imageUrl}
+                      src={slide.photos[0].photoUrl}
                       alt="card-image"
                       className="object-cover w-full h-full"
                     />
@@ -45,17 +43,13 @@ const EmblaCarousel = ({ slides }) => {
                       {slide.title}
                     </h4>
                     <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-                      {slide.excerpt}
+                      {slide.description}
                     </p>
-                    <div className="flex items-center mb-4">
-                      <img
-                        src={slide.avatar}
-                        alt={`Avatar of ${slide.author}`}
-                        className="w-8 h-8 rounded-full mr-3"
-                      />
+                    <div className="flex items-center mb-4 mt-auto">
+                      <div className="w-8 h-8 rounded-full mr-3 bg-gray-300"></div> {/* Placeholder for avatar */}
                       <div>
-                        <p className="font-semibold text-sm">{slide.author}</p>
-                        <p className="text-gray-500 text-xs">{slide.date}</p>
+                        <p className="font-semibold text-sm">Anonymous</p> {/* Placeholder for author */}
+                        <p className="text-gray-500 text-xs">{new Date(slide.datePosted).toLocaleDateString()}</p>
                       </div>
                     </div>
                     <a href="#" className="inline-block">
@@ -77,17 +71,13 @@ const EmblaCarousel = ({ slides }) => {
                     {slide.title}
                   </h4>
                   <p className="text-sm text-gray-700 mb-4 line-clamp-3">
-                    {slide.excerpt}
+                    {slide.description}
                   </p>
-                  <div className="flex items-center mb-4">
-                    <img
-                      src={slide.avatar}
-                      alt={`Avatar of ${slide.author}`}
-                      className="w-8 h-8 rounded-full mr-3"
-                    />
+                  <div className="flex items-center mb-4 mt-auto">
+                    <div className="w-8 h-8 rounded-full mr-3 bg-gray-300"></div> {/* Placeholder for avatar */}
                     <div>
-                      <p className="font-semibold text-sm">{slide.author}</p>
-                      <p className="text-gray-500 text-xs">{slide.date}</p>
+                      <p className="font-semibold text-sm">Anonymous</p> {/* Placeholder for author */}
+                      <p className="text-gray-500 text-xs">{new Date(slide.datePosted).toLocaleDateString()}</p>
                     </div>
                   </div>
                   <a href="#" className="inline-block">
